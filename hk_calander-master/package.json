@@ -1,0 +1,23 @@
+{
+  "name": "hk_calander",
+  "version": "1.0.0",
+  "description": "Synch HK with calander",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swackles/hk_calander.git"
+  },
+  "author": "Swackles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Swackles/hk_calander/issues"
+  },
+  "homepage": "https://github.com/Swackles/hk_calander#readme",
+  "dependencies": {
+    "ical-generator": "^1.3.0",
+    "request": "^2.88.0"
+  }
+}
