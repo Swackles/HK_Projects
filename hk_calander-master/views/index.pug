@@ -1,0 +1,11 @@
+extends layout
+
+block meta
+    meta(name="google-signin-client_id" content="261409934667-b6pkkn3ggjn57th51eg5bid69rc89dh6.apps.googleusercontent.com")
+    meta(name="google-signin-scope" content="profile email")
+block script
+    script(src="https://apis.google.com/js/platform.js" async defer)
+
+
+block content
+    div(class="g-signin2" data-onsuccess="onSignIn" data-theme="dark")

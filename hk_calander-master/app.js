@@ -1,21 +1,39 @@
-const server = require('https');
-const fs = require('fs');
 const path = require('path');
+const createError = require('http-errors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-require('./genIcal.js').run();
+let app = express();
+let routesHandler = (route) => {
+     return require(`./routes/${route}`);
+}
 
-server.createServer({
-    key: fs.readFileSync('keys/server.key'),
-    cert: fs.readFileSync('keys/server.crt'),
-    rejectUnauthorized: false
-    }, (req, res) => {
-    console.log("request");
-    res.writeHead(200, {
-        'Content-Type': 'text/calendar',
-        'Content-Length': fs.statSync(path.join(__dirname, 'hkCalander.ical')).size
-    });
+//routes
+app.use('/kalander', routesHandler('calander'));
+app.use('/', routesHandler('index'));
 
-    fs.createReadStream(path.join(__dirname, 'hkCalander.ical')).pipe(res);
-}).listen(8000);
 
-setInterval(() => {require('./genIcal.js').run();}, 14400000);
+// view engine setup
+app.listen(8000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// error handler
+app.use((err, req, res, next) => {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+module.exports = app;

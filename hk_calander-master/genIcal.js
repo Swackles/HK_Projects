@@ -4,7 +4,7 @@ const request = require('request');
 
 function CreateDateTime(date) {
 
-    date = date.replace('.', "").replace(',', "").replace('<td class="dateline" colspan="5">', "").replace("</td>", "").split(' ');
+    date = date.split(/<(?:.|\n)*?>/gm);
 
     var months = ["jaanuar", "veebruar", "märts", "april", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
 
@@ -13,25 +13,22 @@ function CreateDateTime(date) {
 
 class klass {
     constructor(text, dateTime) {
-        text = text.replace(' class="max_width_250"', '').split("<td>");
 
-        let time = text[1].replace("</td>", "").replace(" - ", ":").split(':');
+        text = text.split(/<(?:.|\n)*?>/gm).filter((value, index, arr) => {
+            return value != "" && value != " " && value != "[" && value != "]";
+        });
 
-        dateTime.setHours(time[0]);
-        dateTime.setMinutes(time[1]);
-        this.start = dateTime;
+        console.log(text);
 
-        dateTime.setHours(time[2]);
-        dateTime.setMinutes(time[3]);
-        this.end = dateTime;
+        let time = text[0].split(" - ");
 
-        this.name = text[2].split(" ")[0] + " " + text[2].split(" ")[1];
-        this.teacher = text[4].replace("<br>", "").replace("</td>", "");
-        this.nr = text[4].replace("</td>", "");
+        this.start = dateTime.setHours(time[0].split(":")[0]);
+
+        console.log(time);
     }
 }
 
-exports.run = () => {
+exports.run = (callback) => {
     request.post('http://start.hk.tlu.ee/sahtelbeta/tunniplaan/tunniplaan.php',
         {
             form: {
@@ -74,13 +71,11 @@ exports.run = () => {
                         description: "Klass " + element.nr + ". Opetaja: " + element.teacher,
                     }]);
                 });
-            
-                fs.writeFile('hkCalander.ical', cal, 'utf8');
 
-                console.log("Ical Updated");
+                callback(cal, classes, null);
     
             } else {
-                console.log("Error: " + error);
+                callback(null, null, "error");
             }
         }
     );
