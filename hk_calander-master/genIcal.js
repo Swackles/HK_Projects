@@ -16,24 +16,33 @@ function CreateDateTime(date) {
 class klass {
     constructor(text, dateTime) {
         text = text.split(/<(?:.|\n)*?>/gm).filter((value, index, arr) => {
-            return value != "" && value != " " && value != "[" && value != "]";
+            if (value == "V") {
+                this.optional == 0;
+            } else {
+                this.optional == 1;
+            }
+            return value != "" && value != " " && value != "[" && value != "]" && value != "V";
         });
 
         let time = text[0].split(" - ");
 
-        this.end = new Date(parseInt(dateTime.getFullYear()), parseInt(dateTime.getMonth()), parseInt(dateTime.getDay()), parseInt(time[0].split(":")[0]), parseInt(time[0].split(":")[1]));
-
+        this.start = new Date(parseInt(dateTime.getFullYear()), parseInt(dateTime.getMonth()), parseInt(dateTime.getDay()), parseInt(time[0].split(":")[0]), parseInt(time[0].split(":")[1]));
         this.end = new Date(parseInt(dateTime.getFullYear()), parseInt(dateTime.getMonth()), parseInt(dateTime.getDay()), parseInt(time[1].split(":")[0]), parseInt(time[1].split(":")[1]));
 
         let nameAcode = text[1].split(" (");
 
         this.name = nameAcode[0];
-        this.code = nameAcode[1].replace(") [", "");
-        this.optional = new Boolean(parseInt(text[2]) - 1)
-        this.hours = text[3];
-        this.teacher = text[4];
-
-        console.log(this);
+        if (nameAcode[1] != null) {
+            this.code = nameAcode[1].replace(") [", "");
+            this.hours = text[2];
+            this.teacher = text[3];
+            this.place = text[4];
+        } else {
+            this.code = text[2].replace(") [", "").replace("(", "");
+            this.hours = text[3];
+            this.teacher = text[4];
+            this.place = text[5];
+        }
     }
 }
 

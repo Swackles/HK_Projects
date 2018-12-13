@@ -1,6 +1,7 @@
 ﻿const express = require('express');
 const router = express.Router();
 const getIcal = require('./../genIcal');
+const mysql = require('./../mysql');
 
 
 /* GET home page. */
@@ -10,10 +11,14 @@ router.get('/', function (req, res, next) {
         if (error) {
             console.log(error);
         } else {
+            mysql.getClass((result) => {
+                console.log(result)
+            });
+            res.render('index', { title: 'login', message: 'Hello there!', calander: classes });
         }
     });
 
-    res.render('index', { title: 'login', message: 'Hello there!' })
+    
 });
 
 module.exports = router;

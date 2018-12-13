@@ -3,9 +3,29 @@ extends layout
 block meta
     meta(name="google-signin-client_id" content="261409934667-b6pkkn3ggjn57th51eg5bid69rc89dh6.apps.googleusercontent.com")
     meta(name="google-signin-scope" content="profile email")
+
 block script
     script(src="https://apis.google.com/js/platform.js" async defer)
 
 
 block content
     div(class="g-signin2" data-onsuccess="onSignIn" data-theme="dark")
+
+    table(style="width:100%")
+        tr
+            th Aeg
+            th kestvus
+            th Tund
+            th Klass
+            th Õpetaja
+        -
+            var months = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"]
+        each item in calander
+            tr
+                th(colspan="5")= item.start.getDate() + ". " + months[item.start.getMonth()]
+            tr
+                th= item.start.getHours() + ":" + item.start.getMinutes() + " - " + item.end.getHours() + ":" + item.end.getMinutes()
+                th= item.hours
+                th= item.name
+                th= item.place
+                th= item.teacher

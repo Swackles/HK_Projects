@@ -3,6 +3,9 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mysql = require('./mysql');
+
+mysql.test();
 
 let app = express();
 let routesHandler = (route) => {
