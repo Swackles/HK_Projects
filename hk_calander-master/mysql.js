@@ -36,7 +36,39 @@ module.exports.addClass = (klass, callback) => {
 module.exports.getClass = (callback) => {
     con.beginTransaction((err) => {
         if (err) throw err;
-        con.query("SELECT * FROm class", (err, result) => {
+        con.query("SELECT * FROM class", (err, result) => {
+            if (err) {con.rollback(() => {})};
+            con.commit((err) => { 
+                if(err) throw err;
+                callback(result);
+            });
+        });
+    });
+}
+
+module.exports.addClass = (homework, callback) => {
+    con.beginTransaction((err) => {
+        if (err) throw err;
+        con.query("INSERT INTO class (class_id, text, date) VALUES (?, ?, ?)", [homework.classId, homework.text, homework.date], (err, result) => {
+            if (err) {
+                con.rollback(() => {
+                throw(err);
+                });
+            }
+            else {
+                con.commit((err) => { 
+                    if(err) throw err;
+                    callback(result);
+                });
+            }
+        });
+    });
+}
+
+module.exports.getHomework = (callback) => {
+    con.beginTransaction((err) => {
+        if (err) throw err;
+        con.query("SELECT * FROM homework", (err, result) => {
             if (err) {con.rollback(() => {})};
             con.commit((err) => { 
                 if(err) throw err;

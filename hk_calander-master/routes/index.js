@@ -16,9 +16,7 @@ router.get('/', function (req, res, next) {
             });
             res.render('index', { title: 'login', message: 'Hello there!', calander: classes });
         }
-    });
-
-    
+    });    
 });
 
 module.exports = router;
