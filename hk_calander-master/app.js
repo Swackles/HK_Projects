@@ -4,8 +4,22 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mysql = require('./mysql');
+const ical = require('./genIcal');
 
 mysql.test();
+
+ical.run((ical, classes, error) => {    
+    let exists = [];
+
+    for (let i = 0; i < classes.length; i++) {
+        if(exists.indexOf(classes[i].name) == -1) {
+            mysql.addClass(classes[i], (result) => {
+                console.log(result);
+                exists.push(classes[i].name);
+            });
+        }
+    }
+});
 
 let app = express();
 let routesHandler = (route) => {

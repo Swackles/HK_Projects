@@ -17,7 +17,7 @@ module.exports.test = () => {
 module.exports.addClass = (klass, callback) => {
     con.beginTransaction((err) => {
         if (err) throw err;
-        con.query("INSERT INTO class (name, optional, teacher, code) SET (?, ?, ?, ?)", [klass.name, klass.optional, klass.teacher, klass.code], (err, result) => {
+        con.query("INSERT INTO class (name, optional, teacher, code) VALUES (?, 0, ?, ?)", [klass.name, klass.teacher, klass.code], (err, result) => {
             if (err) {
                 con.rollback(() => {
                 throw(err);

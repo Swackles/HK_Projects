@@ -16,11 +16,6 @@ function CreateDateTime(date) {
 class klass {
     constructor(text, dateTime) {
         text = text.split(/<(?:.|\n)*?>/gm).filter((value, index, arr) => {
-            if (value == "V") {
-                this.optional == 0;
-            } else {
-                this.optional == 1;
-            }
             return value != "" && value != " " && value != "[" && value != "]" && value != "V";
         });
 
