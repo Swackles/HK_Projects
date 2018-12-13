@@ -15,6 +15,7 @@ let routesHandler = (route) => {
 
 //routes
 app.use('/kalander', routesHandler('calander'));
+app.use('/add', routesHandler('add'));
 app.use('/', routesHandler('index'));
 
 

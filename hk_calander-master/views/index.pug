@@ -6,10 +6,24 @@ block meta
 
 block script
     script(src="https://apis.google.com/js/platform.js" async defer)
+    script(src="script/post.js")
 
 
 block content
     div(class="g-signin2" data-onsuccess="onSignIn" data-theme="dark")
+
+    form#addHomework(action="#")
+        select(name="class")
+            -
+            each item in klass
+                option(value= item.id)= item.name
+        br
+        input(type="date" name="date")
+        br
+        input(placeholder="Töö ülesanded" type="text" name="text")
+        br
+        br
+        input(type="submit" value="Submit")
 
     table(style="width:100%")
         tr
