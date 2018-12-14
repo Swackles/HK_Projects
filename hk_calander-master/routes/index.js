@@ -37,13 +37,15 @@ router.get('/', (req, res, next) => {
                             }
                         }                    
                     }
-                    console.log(homework);
+                    //console.log(homework);
 
                     for (let i = 0; i < homework.length; i++) {
                         let event = homework[i];
 
                         
                     }
+
+                    console.log(calander);  
 
                     res.render('index', { title: 'login', message: 'Hello there!', calander: calander , klass: klass});
                 });

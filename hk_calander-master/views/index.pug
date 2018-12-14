@@ -35,12 +35,17 @@ block content
             th Õpetaja
         -
             var months = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"]
-        each item in calander
-            tr
-                th(colspan="5")= item.start.getDate() + ". " + months[item.start.getMonth()]
-            tr
-                th= item.start.getHours() + ":" + item.start.getMinutes() + " - " + item.end.getHours() + ":" + item.end.getMinutes()
-                th= item.hours
-                th= item.name
-                th= item.place
-                th= item.teacher
+        each year, currentYear in calander
+            each month, currentMonth in year
+                if month
+                    each day, currentDay in month 
+                        if day
+                            tr
+                                th(colspan="5")= currentDay + ". " + months[currentMonth] + " " + currentYear
+                            each klass, currentKlass in day
+                                tr
+                                    th= klass.start.getHours() + ":" + klass.start.getMinutes() + " - " + klass.end.getHours() + ":" + klass.end.getMinutes()
+                                    th= klass.hours
+                                    th= klass.name
+                                    th= klass.place
+                                    th= klass.teacher
