@@ -43,9 +43,19 @@ block content
                             tr
                                 th(colspan="5")= currentDay + ". " + months[currentMonth] + " " + currentYear
                             each klass, currentKlass in day
-                                tr
-                                    th= klass.start.getHours() + ":" + klass.start.getMinutes() + " - " + klass.end.getHours() + ":" + klass.end.getMinutes()
-                                    th= klass.hours
-                                    th= klass.name
-                                    th= klass.place
-                                    th= klass.teacher
+                                tr                                    
+                                    unless klass.hours
+                                        th(colspan="4")= klass.name
+                                        th= klass.teacher
+                                        tr
+                                            th(colspan="5")= klass.homework
+                                    else
+                                        th= klass.start.getHours() + ":" + klass.start.getMinutes() + " - " + klass.end.getHours() + ":" + klass.end.getMinutes()
+                                        th= klass.hours
+                                        th= klass.name
+                                        th= klass.place
+                                        th= klass.teacher
+
+                                        if klass.homework
+                                            tr
+                                                th(colspan="5")= klass.homework

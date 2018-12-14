@@ -48,7 +48,7 @@ module.exports.addHomeowork = (homework, callback) => {
 module.exports.getHomework = (callback) => {
     con.beginTransaction((err) => {
         if (err) callback(err, null);
-        con.query("SELECT * FROM homework", (err, result) => {
+        con.query("SELECT homework.text AS homework, homework.date AS start, class.name, class.teacher FROM homework INNER JOIN class on homework.class_id = class.id", (err, result) => {
             if (err) { con.rollback(() => { callback(err, result) })};
             con.commit((err) => { callback(err, result); });
         });

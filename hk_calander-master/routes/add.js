@@ -3,14 +3,14 @@ const router = express.Router();
 const mysql = require('../mysql');
 
 router.post('/class', (req, res, next) => {
-    console.log(request.body);
+    console.log(req.body);
 
-    mysql(request.body, (err, result) => {
+    mysql.addHomeowork  (req.body, (err, result) => {
         if (err) {
             console.log(err);
-            res.statusCode(500).send();
+            res.sendStatus(500);
         } else {
-            res.statusCode(200).send();
+            res.sendStatus(200);
         }
     });
 });
