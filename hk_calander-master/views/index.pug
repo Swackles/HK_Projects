@@ -12,15 +12,16 @@ block script
 block content
     div(class="g-signin2" data-onsuccess="onSignIn" data-theme="dark")
 
-    form#addHomework(action="#")
-        select(name="class")
+    form#addHomework(onsubmit="addHomework()" action="#")
+        select#addHomework_Class(name="class")
+            option(value= -1) - - Select - -
             -
             each item in klass
                 option(value= item.id)= item.name
         br
-        input(type="date" name="date")
+        input#addHomework_Date(type="date" name="date")
         br
-        input(placeholder="Töö ülesanded" type="text" name="text")
+        input#addHomework_Text(placeholder="Töö ülesanded" type="text" name="text")
         br
         br
         input(type="submit" value="Submit")
