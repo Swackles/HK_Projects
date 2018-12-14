@@ -16,50 +16,30 @@ module.exports.test = () => {
 
 module.exports.addClass = (klass, callback) => {
     con.beginTransaction((err) => {
-        if (err) throw err;
+        if (err) callback(err, null);
         con.query("INSERT INTO class (name, optional, teacher, code) VALUES (?, 0, ?, ?)", [klass.name, klass.teacher, klass.code], (err, result) => {
-            if (err) {
-                con.rollback(() => {
-                throw(err);
-                });
-            }
-            else {
-                con.commit((err) => { 
-                    if(err) throw err;
-                    callback(result);
-                });
-            }
+            if (err) con.rollback(() => { callback(err, result); });
+            else con.commit((err) => { callback(err, result); });
         });
     });
 }
 
 module.exports.getClass = (callback) => {
     con.beginTransaction((err) => {
-        if (err) throw err;
+        if (err) callback(err, null);
         con.query("SELECT * FROM class", (err, result) => {
-            if (err) {con.rollback(() => {})};
-            con.commit((err) => { 
-                if(err) throw err;
-                callback(result);
-            });
+            if (err) {con.rollback(() => { callback(err, result) })};
+            con.commit((err) => { callback(err, result); });
         });
     });
 }
 
-module.exports.addClass = (homework, callback) => {
+module.exports.addHomeowork = (homework, callback) => {
     con.beginTransaction((err) => {
-        if (err) throw err;
-        con.query("INSERT INTO class (class_id, text, date) VALUES (?, ?, ?)", [homework.classId, homework.text, homework.date], (err, result) => {
-            if (err) {
-                con.rollback(() => {
-                throw(err);
-                });
-            }
-            else {
-                con.commit((err) => { 
-                    if(err) throw err;
-                    callback(result);
-                });
+        if (err) callback(err, null);
+        con.query("INSERT INTO homework (class_id, text, date) VALUES (?, ?, ?)", [homework.id, homework.text, homework.date], (err, result) => {
+            if (err) con.rollback(() => { callback(err, result); });
+            else { con.commit((err) => {  callback(err, result); });
             }
         });
     });
@@ -67,13 +47,10 @@ module.exports.addClass = (homework, callback) => {
 
 module.exports.getHomework = (callback) => {
     con.beginTransaction((err) => {
-        if (err) throw err;
+        if (err) callback(err, null);
         con.query("SELECT * FROM homework", (err, result) => {
-            if (err) {con.rollback(() => {})};
-            con.commit((err) => { 
-                if(err) throw err;
-                callback(result);
-            });
+            if (err) { con.rollback(() => { callback(err, result) })};
+            con.commit((err) => { callback(err, result); });
         });
     });
 }
