@@ -1,0 +1,29 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+    min-width: 360px;
+    margin: auto;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.sorting {
+    border: 0px;
+    padding: 0px;
+    background-color: #fff;
+}
+
+.sorting:hover{
+    cursor: pointer;
+
+}

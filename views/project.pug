@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div(class="flexcontainer")
+        - each item in data
+            a(href=`/${item.Path}`)
+                div(class="flexdata")
+                    h1= item.Name
+                    p= item.Description

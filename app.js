@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.use('/kalander', routesHandler('calander'));
 app.use('/add', routesHandler('add'));
+app.use('/project', routesHandler('project'));
 app.use('/', routesHandler('index'));
 
 

@@ -1,0 +1,47 @@
+extends layout
+
+block stylesheet
+    link(rel='stylesheet', href='/stylesheets/genList/style.css')
+
+block script
+    script(src="/script/genList/script.js")
+
+block content
+    input#studentCount(type="number")
+    button(onclick="getGrades()") test
+    table#statisticTable
+        tr
+            th
+            th Value
+        tr
+            td Passed
+            td
+        tr
+            td A
+            td
+        tr
+            td B
+            td
+        tr
+            td C
+            td
+        tr
+            td D
+            td
+        tr
+            td E
+            td
+    table#dataTable
+        tr
+            th(class="flex") Name
+                button(class="sorting") ▴
+                button(class="sorting") ▾
+            th Age
+                button(onclick="sortAge('up')" class="sorting") ▴
+                button(onclick="sortAge('down')" class="sorting") ▾
+            th Grade
+                button(class="sorting") ▴
+                button(class="sorting") ▾
+            th Score
+                button(class="sorting") ▴
+                button(class="sorting") ▾
