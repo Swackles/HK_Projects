@@ -1,0 +1,12 @@
+extends layout
+
+block meta
+    meta(name="Name" content="Bouncing Balls")
+    meta(name="Description" content="Bounces balls around")
+
+block script
+    script(src="/script/bouncingBalls/script.js")
+
+block content
+    button(onclick="startStop()") Start/Stop
+    canvas(id="canvas" width="1200" height="600" style="border:1px solid #000000;")

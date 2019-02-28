@@ -1,0 +1,31 @@
+.flexcontainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexdata {
+    flex: 1 0 auto;
+}
+
+.projectContainer {
+    border:2px solid #bfbfbf;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 25px;
+    overflow-wrap: break-word;
+}
+
+.projectContainer h1 {
+    text-align: center;
+}
+
+.projectContainer img {
+    display: block;
+    margin: auto;
+    border-radius: 25px 25px 0px 0px;
+}
+
+a {
+    text-decoration: none;
+    color: #000 !important;
+}

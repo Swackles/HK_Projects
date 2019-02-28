@@ -5,14 +5,31 @@ const path = require('path');
 
 router.get('/', (req, res, next) => {
 
-    fs.readFile(path.join(__dirname, '../projectData.json'), {Encoding: "UTF-8"}, (err, data) => {
-        if(err) {
-            conole.log(err);
-            res.render("error", { message: `Path "${req.url}" dosen't exists`, error: { status: `404` } });
+    fs.readdir(`${__dirname}/../views/`, (err , items) => {
+        if (err){
+            console.log(err);
+            res.render("error", { message: `Unable to get projects`, error: { status: `404` } });
         } else {
-            res.render("project", { data: JSON.parse(data) } );
+            let projects = new Array();
+
+            for(let i = 0; i < items.length; i++) {
+                let name = items[i];
+
+                if (name.includes("project-")){
+                    let data = fs.readFileSync(`${__dirname}/../views/${name}`, `utf8`);
+
+                    projects.push({
+                        Name: data.match(/(?:name="Name" content=")(.*?)(?:"\))/)[1],
+                        Description: data.match(/(?:name="Description" content=")(.*?)(?:"\))/)[1],
+                        Path: `project/${name.match(/(?:project-)(.*?)(?:.pug)/)[1]}`,
+                        Image: "https://via.placeholder.com/350x150"
+                    })
+                }
+            }
+            
+            res.render("project", { data: projects, title: "Projects"});
         }
-    });
+    })
 });
 
 router.get('/*', (req, res, next) => {

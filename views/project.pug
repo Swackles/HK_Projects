@@ -1,9 +1,13 @@
 extends layout
 
+block stylesheet
+    link(rel='stylesheet', href='/stylesheets/project.css')
+
 block content
     div(class="flexcontainer")
-        - each item in data
-            a(href=`/${item.Path}`)
-                div(class="flexdata")
+        each item in data
+            a(href=`/${item.Path}`)            
+                div(class="flexdata projectContainer")
+                    img(class="projectImage" src=`${item.Image}`)
                     h1= item.Name
                     p= item.Description
