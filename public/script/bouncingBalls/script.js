@@ -1,12 +1,24 @@
 class Ball {
     constructor(ball = null) {
         if (ball == null) {
-            this.x = 100;
-            this.y = 100;
-            this.radius = 30;
-            this.color = "#FF0000";
-            this.dx = 5;
-            this.dy = 5; 
+            this.radius = Math.round(Math.random() * 50 + 1);
+            this.color = randomHexColor();
+            this.dx = Math.round(Math.random() * 10 + 1);
+
+
+            if (randomBool) {
+                this.dx = this.dx * -1;
+            }
+
+            let canvas = new Canvas();
+
+            this.x = Math.round(Math.random() * canvas.width);
+            this.y = Math.round(Math.random() * canvas.height);
+
+            this.dy = Math.round(Math.random() * 10 + 1);
+            if (randomBool) {
+                this.dy = this.dy * -1;
+            }
         } else {
             this.x = ball.x;
             this.y = ball.y;
@@ -59,9 +71,32 @@ function startStop() {
 
 }
 
+function addBall() {
+    sessionStorage.setItem("addBall", "true");
+}
+
+function randomBool() {
+    if(Math.round(Math.random()) == 1) {
+        return true
+    } else {
+        return false;
+    }
+}
+
+function randomHexColor() {
+    let red = (Math.round(Math.random() * 255)).toString(16);
+    setTimeout(() => {}, 400);
+    let green = (Math.round(Math.random() * 255)).toString(16);
+    setTimeout(() => {}, 400);
+    let blue = (Math.round(Math.random() * 255)).toString(16);
+    setTimeout(() => {}, 400);
+    return `#${red}${green}${blue}`;
+}
+
 window.onload = () => {
     sessionStorage.setItem("Balls", JSON.stringify([new Ball()]));
     sessionStorage.setItem("Running", "false");
+    sessionStorage.setItem("addBall", "false");
 
     window.setInterval(() => {
         if (sessionStorage.getItem("Running") == "true") {
@@ -69,6 +104,12 @@ window.onload = () => {
             let canvas = new Canvas();
             let balls = JSON.parse(sessionStorage.getItem("Balls"));
             let ballsUpdated = new Array();
+
+            if (sessionStorage.getItem("addBall") == "true") {
+                sessionStorage.setItem("addBall", "false");
+                
+                balls.push(new Ball());
+            }
 
             canvas.clear();
             for (let i = 0; i < balls.length; i++) {
