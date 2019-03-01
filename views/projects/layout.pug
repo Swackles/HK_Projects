@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title= title
+
+    block meta
+    meta(charset="UTF-8")
+
+    block stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    block script
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  body
+    header(class="flexcontainer")
+      each item in data
+        button
+          a(class="flex projectMenu" href=`/${item.Path}`)= item.Name
+    body
+      block content
+    footer

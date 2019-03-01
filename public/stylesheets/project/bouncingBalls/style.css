@@ -1,0 +1,37 @@
+.flexcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.vertical {
+    align-self: center;
+    width: 1200;
+    flex-direction: row;
+}
+
+.flexdata {
+    flex-grow: 1;
+    flex: 1 0 auto;
+}
+
+.flexdataControls {
+    flex: 1 0 100% !important;
+}
+
+.canvas {
+    margin: auto;
+    border: 1px solid #000000;
+}
+
+.container {
+    min-width: 1200px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.speed {
+    font-size: 20px;
+    text-align: end;
+    margin: 10px 0px 10px 0px ;
+}

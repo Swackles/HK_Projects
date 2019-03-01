@@ -1,0 +1,47 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+table, .gradeMeter {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+    min-width: 360px;
+    margin: auto;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.sorting {
+    border: 0px;
+    padding: 0px;
+    background-color: #fff;
+}
+
+.sorting:hover{
+    cursor: pointer;
+}
+
+.gradeMeter {
+    align-self: center;
+    background-size: 100% 100%;
+}
+
+.gradeMeter::-webkit-meter-optimum-value {
+    box-shadow: 0 5px 5px -5px #999 inset;
+    background-image: linear-gradient(
+      90deg,
+      #f00 var(--F),
+      #f60 var(--E),
+      #fc0 var(--D),
+      #cf0 var(--C),
+      #6f0 var(--B),
+      #0f0 var(--A)
+    );
+    background-size: 100% 100%;
+  }

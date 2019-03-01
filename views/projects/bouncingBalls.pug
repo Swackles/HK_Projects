@@ -1,0 +1,21 @@
+extends layout
+
+block meta
+    meta(name="Name" content="Bouncing Balls")
+    meta(name="Description" content="Bounces balls around")
+
+block stylesheet
+    link(rel='stylesheet', href='/stylesheets/project/bouncingBalls/style.css')
+
+block script
+    script(src="/script/project/bouncingBalls/script.js")
+
+block content
+    div(class="flexcontainer container")
+        div(class="flexcontainer flexdata vertical")
+            button#playButton(class="flexdata" onclick="startStop()") Start 
+            button(class="flexdata" onclick="addBall()") Add ball
+            
+            p(class="flexdata speed") Speed:
+            input#speed(class="flexdata" type="range" name="points" min="0" max="150" oninput="speedChange()")
+        canvas(class="canvas flexdata" id="canvas" width="1200" onresize="canvasSize()" height="600")
