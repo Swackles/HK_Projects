@@ -36,6 +36,12 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/list', (req, res, next) => {
+    getProjects((projects) => {
+        res.send(JSON.stringify(projects));
+    });
+});
+
 router.get('/*', (req, res, next) => {
     let url = req.url.split("/");
     let file = url[url.length - 1];
