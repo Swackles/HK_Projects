@@ -5,9 +5,13 @@ block stylesheet
 
 block content
     div(class="flexcontainer")
-        each item in data
-            a(href=`/${item.Path}`)            
-                div(class="flexdata projectContainer")
-                    img(class="projectImage" src=`${item.Image}`)
-                    h1= item.Name
-                    p= item.Description
+        case data.length
+            when 0
+                h1 No projects found
+            default
+                each item in data
+                    a(href=`/${item.Path}`)            
+                        div(class="flexdata projectContainer")
+                            img(class="projectImage" src=`${item.Image}`)
+                            h1= item.Name
+                            p= item.Description

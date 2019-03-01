@@ -30,7 +30,7 @@ class House {
             this.body = {
                 height: Math.round((Math.random() * (height / 2)) + 1),
                 width: Math.round((Math.random() * (width / 2)) + 1),
-                color: this.randomHexColor(),
+                color: randomHexColor(),
             };
             this.body.x = Math.round((width - this.body.width) / 2);
             this.body.y = Math.round((height - this.body.height) / 2);
@@ -38,7 +38,7 @@ class House {
             this.roof = {
                 height: Math.round((Math.random() * ((height / 2) - (this.body.height / 2))) + 1),
                 width: Math.round((Math.random() * ((width / 2) - this.body.width)) + this.body.width),
-                color: this.randomHexColor(),
+                color: randomHexColor(),
                 startPos: { },
                 lineOne: { },
                 lineTwo: { }
@@ -61,7 +61,7 @@ class House {
             this.foundation = {
                 height: Math.round((Math.random() * ((height / 2) - (this.body.height / 2))) + 1),
                 width: this.body.width,
-                color: this.randomHexColor(),
+                color: randomHexColor(),
                 x: this.body.x,
                 y: this.body.y + this.body.height
             };
@@ -79,8 +79,8 @@ class House {
             let window = {
                 height: Math.round(Math.random() * (this.body.height / 2) + 1),
                 width:  Math.round(Math.random() * (this.body.width / 2) + 1),
-                lights: this.randomBool(),
-                innerFrames: this.randomBool()
+                lights: randomBool(),
+                innerFrames: randomBool()
             };
 
             windows.push(window);
@@ -100,27 +100,9 @@ class House {
 
             if (this.body.width / 3 < sumWidth) { generate = false; }
             if (this.body.height / 3 < sumHeight) { generate = false; }
-            if (this.randomBool() == 1) { generate = false; }
+            if (randomBool()) { generate = false; }
         }
         return windows;
-    }
-
-    randomBool() {
-        if(Math.round(Math.random()) == 1) {
-            return true
-        } else {
-            return false;
-        }
-    }
-
-    randomHexColor() {
-        let red = (Math.round(Math.random() * 255)).toString(16);
-        setTimeout(() => {}, 400);
-        let green = (Math.round(Math.random() * 255)).toString(16);
-        setTimeout(() => {}, 400);
-        let blue = (Math.round(Math.random() * 255)).toString(16);
-        setTimeout(() => {}, 400);
-        return `#${red}${green}${blue}`;
     }
 }
 

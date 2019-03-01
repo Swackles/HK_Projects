@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 mysql.test();
 
-let app = express();
+let app = module.exports = express();
 let routesHandler = (route) => {
      return require(`./routes/${route}`);
 }
@@ -44,5 +44,3 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error');
 });
-
-module.exports = app;

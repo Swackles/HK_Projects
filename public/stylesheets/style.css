@@ -1,8 +1,29 @@
 body {
-  padding: 50px;
+  margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: black;
+}
+
+.flexcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.flex {
+  flex: 1 0 auto;
+}
+
+.projectMenu {
+  font-size: 15px;
+  margin: 0px 10px 0px 10px;
+  display: inline !important;
+}
+
+header {
+  margin: 20px 15% 20px 15%;
 }

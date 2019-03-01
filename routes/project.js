@@ -2,10 +2,10 @@ const express = require('express');
 const fs = require("fs");
 const router = express.Router();
 const path = require('path');
+const app = require('./../app');
 
-router.get('/', (req, res, next) => {
-
-    fs.readdir(`${__dirname}/../views/`, (err , items) => {
+function getProjects(callback) {
+    fs.readdir(`${__dirname}/../views/projects/`, (err , items) => {
         if (err){
             console.log(err);
             res.render("error", { message: `Unable to get projects`, error: { status: `404` } });
@@ -15,34 +15,43 @@ router.get('/', (req, res, next) => {
             for(let i = 0; i < items.length; i++) {
                 let name = items[i];
 
-                if (name.includes("project-")){
-                    let data = fs.readFileSync(`${__dirname}/../views/${name}`, `utf8`);
+                if (name == "layout.pug") continue;
+                let data = fs.readFileSync(`${__dirname}/../views/projects/${name}`, `utf8`);
 
-                    projects.push({
-                        Name: data.match(/(?:name="Name" content=")(.*?)(?:"\))/)[1],
-                        Description: data.match(/(?:name="Description" content=")(.*?)(?:"\))/)[1],
-                        Path: `project/${name.match(/(?:project-)(.*?)(?:.pug)/)[1]}`,
-                        Image: "https://via.placeholder.com/350x150"
-                    })
-                }
+                projects.push({
+                    Name: data.match(/(?:name="Name" content=")(.*?)(?:"\))/)[1],
+                    Description: data.match(/(?:name="Description" content=")(.*?)(?:"\))/)[1],
+                    Path: `project/${name.match(/(.*?)(?:.pug)/)[1]}`,
+                    Image: "https://via.placeholder.com/350x150"
+                });
             }
-            
-            res.render("project", { data: projects, title: "Projects"});
+            callback(projects);
         }
-    })
+    });
+}
+
+router.get('/', (req, res, next) => {
+    getProjects((projects) => {
+        res.render("project", { data: projects, title: "Projects"});
+    });
 });
 
 router.get('/*', (req, res, next) => {
     let url = req.url.split("/");
     let file = url[url.length - 1];
 
-    res.render(`project-${file}`, {}, (err, html) => {
-        if(err) {
-            console.log(err);
-            res.render("error", { message: `Project "${file}" dosen't exists`, error: { status: `404` } });
-        } else {
-            res.render(`project-${file}`);
-        }
+    getProjects((projects) => {
+        app.set("views", path.join(__dirname, './../views/projects'));
+
+        res.render(`${file}`, { data: projects, title: projects.find(x => x.Path === `project/${file}` ).Name}, (err, html) => {
+            if(err) {
+                console.log(err);
+                res.render("error", { message: `Project "${file}" dosen't exists`, error: { status: `404` } });
+            } else {
+                res.send(html);
+            }
+        });
+        app.set("views", path.join(__dirname, './../views'));
     });
 });
 
