@@ -3,11 +3,7 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mysql = require('./mysql');
-const ical = require('./genIcal');
 const bodyParser = require('body-parser');
-
-mysql.test();
 
 let app = module.exports = express();
 let routesHandler = (route) => {
@@ -23,10 +19,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
-app.use('/kalander', routesHandler('calander'));
-app.use('/add', routesHandler('add'));
 app.use('/project', routesHandler('project'));
-app.use('/', routesHandler('index'));
+app.use('/', routesHandler('project'));
 
 
 // view engine setup

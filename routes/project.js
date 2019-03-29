@@ -19,9 +19,9 @@ function getProjects(callback) {
                 let data = fs.readFileSync(`${__dirname}/../views/projects/${name}`, `utf8`);
 
                 projects.push({
-                    Name: data.match(/(?:name="Name" content=")(.*?)(?:"\))/)[1],
-                    Description: data.match(/(?:name="Description" content=")(.*?)(?:"\))/)[1],
-                    Path: `project/${name.match(/(.*?)(?:.pug)/)[1]}`,
+                    Name: data.match(/meta\(name="Name" content="(.*?)"\)/)[1],
+                    Description: data.match(/meta\(name="Description" content="(.*?)"\)/)[1],
+                    Path: `project/${name.match(/(.*?).pug/)[1]}`,
                     Image: "https://via.placeholder.com/350x150"
                 });
             }
@@ -48,10 +48,11 @@ router.get('/*', (req, res, next) => {
 
     getProjects((projects) => {
         app.set("views", path.join(__dirname, './../views/projects'));
-
+        console.log(file);
         res.render(`${file}`, { data: projects, title: projects.find(x => x.Path === `project/${file}` ).Name}, (err, html) => {
             if(err) {
                 console.log(err);
+                app.set("views", path.join(__dirname, './../views'));
                 res.render("error", { message: `Project "${file}" dosen't exists`, error: { status: `404` } });
             } else {
                 res.send(html);
