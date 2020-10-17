@@ -24,7 +24,7 @@ app.use('/', routesHandler('project'));
 
 
 // view engine setup
-app.listen(8000);
+app.listen(80);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 

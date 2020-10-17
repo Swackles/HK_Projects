@@ -45,6 +45,7 @@ router.get('/list', (req, res, next) => {
 router.get('/*', (req, res, next) => {
     let url = req.url.split("/");
     let file = url[url.length - 1];
+    if (file == 'favicon.ico') return next()
 
     getProjects((projects) => {
         app.set("views", path.join(__dirname, './../views/projects'));
