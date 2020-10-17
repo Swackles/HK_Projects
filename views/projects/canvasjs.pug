@@ -1,0 +1,22 @@
+doctype html
+head
+
+block meta
+    meta(name="Name" content="CanvasJS")
+    meta(name="Description" content="Demo project for canvasJS")
+
+block script
+  script(src="/script/project/canvasjs/script.js")
+  script(src='https://canvasjs.com/assets/script/canvasjs.min.js')
+
+block content
+  #canvas(style='width: 85%; height: 50%;')
+  table
+    tr
+      td S&otilde;na:
+      td
+        input#input(type='text')
+    tr
+      td
+      td
+        input(type='button' value='Kuva' onclick='start()')
